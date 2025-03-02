@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:24:56 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/01 19:50:05 by thibault         ###   ########.fr       */
+/*   Updated: 2025/03/02 11:38:03 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,42 @@ long	ft_atoi(const char *s)
 	return (result * sign);
 }
 
-int	check_number(const char *s)
+int	check_number(int ac, char **av)
 {
 	int		i;
-	
-	while (s[i])
+	int		j;
+
+	i = 1;
+	while (av[i])
 	{
-		if (s[i] < '0' || s[i] > '9')
-			return (0);
+		j = 0;
+		while (av[i][j])
+		{
+			if (av[i] < '0' || av[i] > '9')
+			{
+				ft_printf("error: input isn't a number\n");
+				return (0);
+			}
+			j++;
+		}
 		i++;
 	}
 	return (1);
 }
 
-int	is_valid_input(int ac, char **av)
+int	positive_num(int ac, char **av)
 {
 	int		i;
-	long	output;
 
-	i = 0;
-	while (i < ac)
+	i = 1;
+	while (i <= ac)
 	{
-		if (!check_number(av))
+		if (ft_atoi(av[i]) < 0)
+		{
+			ft_printf("error: negative number\n");
 			return (0);
+		}
 		i++;
 	}
+	return (1);
 }

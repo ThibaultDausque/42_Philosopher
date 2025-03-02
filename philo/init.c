@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/01 19:45:12 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/02 11:36:06 by tdausque         ###   ########.fr       */
+/*   Created: 2025/03/02 11:17:11 by tdausque          #+#    #+#             */
+/*   Updated: 2025/03/02 11:45:07 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib/philo.h"
 
-int	main(int ac, char **av)
+// attribuer des donnees pour chaue philo
+void	init_a_philo(char **av, t_philo *philo)
 {
-	int		nb_of_philo;
-	t_philo	*philo;
-
-	if (ac != 6)
-		return (0);
-	if (!check_number(ac, av) || !positive_num(ac, av));
-		return (0);
-	nb_of_philo = ft_atoi(av[1]);
-	philo = (t_philo *)malloc(sizeof(t_philo));
-	if (!philo)
-		return (0);
+	philo->time_to_die = ft_atoi(av[2]);
+	philo->time_to_eat = ft_atoi(av[3]);
+	philo->time_to_sleep = ft_atoi(av[4]);
+	
 }
