@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:24:56 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/02 11:38:03 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/06 12:31:25 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,15 @@ int	positive_num(int ac, char **av)
 		i++;
 	}
 	return (1);
+}
+
+void	print_message(char *s)
+{
+	int		i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i]);
+		write(1, &s[i++], 1);
 }

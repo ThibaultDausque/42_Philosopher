@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:19:24 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/02 20:18:38 by thibault         ###   ########.fr       */
+/*   Updated: 2025/03/06 12:31:45 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_table
 int		check_number(int ac, char **av);
 int		positive_num(int ac, char **av);
 long	ft_atoi(const char *s);
+void	print_message(char *s);
 
 
 #endif
