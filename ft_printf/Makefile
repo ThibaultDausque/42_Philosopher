@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+         #
+#    By: thibault <thibault@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 16:25:54 by tdausque          #+#    #+#              #
-#    Updated: 2024/10/27 09:50:12 by tdausque         ###   ########.fr        #
+#    Updated: 2025/03/07 14:55:16 by thibault         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = ft_printf.a
 
 # compilateur c
 CC = cc
@@ -35,7 +35,7 @@ all : $(NAME)
 # depend de la creation des fichiers objets
 $(NAME) : $(OBJS)
 # ar pour creer une archive static (bibliotheque .a)
-	ar -rcs $(NAME) $(OBJS)
+	@ar -rcs $(NAME) $(OBJS)
 
 # compile le fichier .c en fichier objet .o
 # pour chaque .c il creera .o
@@ -46,10 +46,11 @@ $(NAME) : $(OBJS)
 	@echo "\033[32mCopiling $^ to $@!\033[0m"
 
 clean :
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
+	@$(RM) $(NAME)
 
 fclean :	clean
-	$(RM) $(NAME)
+	@$(RM) $(OBJS)
 
 re : fclean all
 

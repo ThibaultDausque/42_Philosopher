@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:25:20 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/07 12:20:38 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:13:36 by thibault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,39 +30,38 @@ void	*routine(void *arg)
 void	create_thread(t_philo *philo, t_time time)
 {
 	int				nb_philo = 2;
-	pthread_t		philo_thread[nb_philo];
-	pthread_mutex_t	fork[nb_philo];
+	pthread_t		*philo_thread;
+	pthread_mutex_t	*fork;
 	int				i;
-	int				j;
 
-	i = 1;
-	while (i <= nb_philo)
-	{
-		pthread_mutex_init(&fork[i], NULL);
-		i++;
-	}
+	philo_thread = (pthread_t *)malloc(sizeof(pthread_t) * nb_philo);
+	fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * nb_philo);
+	if (!philo_thread || !fork)
+		return ;
+	
+	i = 0;
+	while (i < nb_philo)
+		pthread_mutex_init(&fork[i++], NULL);
 
-	i = 1;
-	j = 0;
+	i = 0;
 	//initialiser chaque philosophe
-	while (i <= nb_philo)
+	while (i < nb_philo)
 	{
-		philo[j].id = i;
-		philo[j].time_to_eat = time.time_to_eat;
-		philo[j].time_to_sleep = time.time_to_sleep;
-		philo[j].l_fork = &fork[i];
-		philo[j].r_fork = &fork[(i + 1) % nb_philo];
-		pthread_create(&philo_thread[j], NULL, routine, (void *) &philo[i]);
-		j++;
+		philo[i].id = i + 1;
+		philo[i].time_to_eat = time.time_to_eat;
+		philo[i].time_to_sleep = time.time_to_sleep;
+		philo[i].l_fork = &fork[i];
+		philo[i].r_fork = &fork[(i + 1) % nb_philo];
+		pthread_create(&philo_thread[i], NULL, routine, (void *) &philo[i]);
 		i++;
 	}
 
 	i = 0;
 	while (i < nb_philo)
-		pthread_join(philo_thread[j], NULL);
+		pthread_join(philo_thread[i++], NULL);
 
 	i = 0;
 	while (i < nb_philo)
-		pthread_mutex_destroy(&fork[i]);
+		pthread_mutex_destroy(&fork[i++]);
 
 }

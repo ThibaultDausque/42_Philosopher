@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:24:56 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/07 12:21:29 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:14:24 by thibault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ int	positive_num(int ac, char **av)
 
 void	print_message(char *s, int id)
 {
-	int		i;
-
-	i = 0;
 	if (!s)
 		return ;
 	ft_printf("philosopher %d %s", id, s);
