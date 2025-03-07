@@ -6,11 +6,11 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:24:56 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/06 12:31:25 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/07 12:21:29 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/philo.h"
+#include "philo.h"
 
 long	ft_atoi(const char *s)
 {
@@ -36,7 +36,7 @@ long	ft_atoi(const char *s)
 	return (result * sign);
 }
 
-int	check_number(int ac, char **av)
+int	check_number(char **av)
 {
 	int		i;
 	int		j;
@@ -47,7 +47,7 @@ int	check_number(int ac, char **av)
 		j = 0;
 		while (av[i][j])
 		{
-			if (av[i] < '0' || av[i] > '9')
+			if (av[i][j] < '0' || av[i][j] > '9')
 			{
 				ft_printf("error: input isn't a number\n");
 				return (0);
@@ -76,13 +76,12 @@ int	positive_num(int ac, char **av)
 	return (1);
 }
 
-void	print_message(char *s)
+void	print_message(char *s, int id)
 {
 	int		i;
 
 	i = 0;
 	if (!s)
 		return ;
-	while (s[i]);
-		write(1, &s[i++], 1);
+	ft_printf("philosopher %d %s", id, s);
 }
