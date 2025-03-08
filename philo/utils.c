@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:24:56 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/07 14:14:24 by thibault         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:35:23 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	positive_num(int ac, char **av)
 	int		i;
 
 	i = 1;
-	while (i <= ac)
+	while (i < ac)
 	{
 		if (ft_atoi(av[i]) < 0)
 		{
@@ -76,9 +76,11 @@ int	positive_num(int ac, char **av)
 	return (1);
 }
 
-void	print_message(char *s, int id)
+void	print_message(char *s, t_philo *philo, int id)
 {
 	if (!s)
 		return ;
-	ft_printf("philosopher %d %s", id, s);
+	pthread_mutex_lock(philo->message);
+	ft_printf("philosopher %d %s\n", id, s);
+	pthread_mutex_unlock(philo->message);
 }

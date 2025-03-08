@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 19:45:12 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/07 15:57:25 by thibault         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:56:06 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	main(int ac, char **av)
 	t_time	time;
 	t_philo	*philo;
 
-	if (ac != 6)
+	if (ac != 5 && ac != 6)
 		return (0);
-	if (!check_number(av) || !positive_num(ac, av))
+	if (!positive_num(ac, av) || !check_number(av))
 		return (0);
 	nb_of_philo = ft_atoi(av[1]);
 	philo = (t_philo *)malloc(sizeof(t_philo) * nb_of_philo);
@@ -29,7 +29,7 @@ int	main(int ac, char **av)
 	time.time_to_die = ft_atoi(av[2]);
 	time.time_to_eat = ft_atoi(av[3]);
 	time.time_to_sleep = ft_atoi(av[4]);
-	create_thread(philo, time);
+	create_thread(philo, time, nb_of_philo);
 	free(philo);
 	return (0);
 }
