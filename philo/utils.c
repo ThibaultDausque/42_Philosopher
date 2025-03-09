@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:24:56 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/09 12:36:55 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/09 14:24:53 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,18 @@ void	print_message(char *s, t_philo *philo, int id)
 	if (!s)
 		return ;
 	pthread_mutex_lock(philo->message);
-	ft_printf("%d ms %d %s\n", (int)elapsed_time(philo->start_time), id, s);
+	ft_printf("%d ms %d %s\n", elapsed_time(philo->start_time), id, s);
 	pthread_mutex_unlock(philo->message);
 }
 
-long long	get_time(void)
+int	get_time(void)
 {
 	struct timeval	tv;
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-long long	elapsed_time(long long start_time)
+int	elapsed_time(int start_time)
 {
 	return (get_time() - start_time);
 }

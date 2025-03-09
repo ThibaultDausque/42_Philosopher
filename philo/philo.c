@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:25:20 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/09 12:48:57 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/09 14:56:24 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	while (1)
 	{
-		print_message("has taken a fork", philo, philo->id);
-		print_message("has taken a fork", philo, philo->id);
 		ft_eat(philo);
 		ft_sleep(philo);
 		ft_think(philo);
+		if (ft_dead(philo))
+			break ;
 	}
 	return (NULL);
 }
@@ -58,6 +58,7 @@ void	create_thread(t_philo *philo, t_time time, int nb_of_philo)
 		philo[i].id = i + 1;
 		philo[i].time_to_eat = time.time_to_eat;
 		philo[i].time_to_sleep = time.time_to_sleep;
+		philo[i].time_to_die = time.time_to_die;
 		philo[i].l_fork = &fork[i];
 		philo[i].r_fork = &fork[(i + 1) % nb_of_philo];
 		philo[i].message = message;
