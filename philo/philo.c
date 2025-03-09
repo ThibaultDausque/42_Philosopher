@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:25:20 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/09 12:00:46 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/09 12:48:57 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	while (1)
 	{
+		print_message("has taken a fork", philo, philo->id);
+		print_message("has taken a fork", philo, philo->id);
 		ft_eat(philo);
 		ft_sleep(philo);
 		ft_think(philo);
