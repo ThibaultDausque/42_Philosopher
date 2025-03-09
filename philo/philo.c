@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:25:20 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/08 11:57:48 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/09 12:00:46 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,19 @@ void	*routine(void *arg)
 // create 2 thread to simulate philo routine
 void	create_thread(t_philo *philo, t_time time, int nb_of_philo)
 {
+	struct timeval	tv;
 	pthread_t		*philo_thread;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	*message;
+	long long		start_time;
 	int				i;
 
+	gettimeofday(&tv, NULL);
+	start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	philo_thread = (pthread_t *)malloc(sizeof(pthread_t) * nb_of_philo);
 	fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * nb_of_philo);
 	message = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	if (!philo_thread || !fork)
+	if (!philo_thread || !fork || !message)
 		return ;
 
 	i = 0;
@@ -55,6 +59,7 @@ void	create_thread(t_philo *philo, t_time time, int nb_of_philo)
 		philo[i].l_fork = &fork[i];
 		philo[i].r_fork = &fork[(i + 1) % nb_of_philo];
 		philo[i].message = message;
+		philo[i].start_time = start_time;
 		pthread_create(&philo_thread[i], NULL, routine, (void *) &philo[i]);
 		i++;
 	}
@@ -67,4 +72,6 @@ void	create_thread(t_philo *philo, t_time time, int nb_of_philo)
 	while (i < nb_of_philo)
 		pthread_mutex_destroy(&fork[i++]);
 	pthread_mutex_destroy(message);
+	free(philo_thread);
+	free(fork);
 }
