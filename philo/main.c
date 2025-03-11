@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 19:45:12 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/08 11:56:06 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:30:00 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int ac, char **av)
 	time.time_to_die = ft_atoi(av[2]);
 	time.time_to_eat = ft_atoi(av[3]);
 	time.time_to_sleep = ft_atoi(av[4]);
-	create_thread(philo, time, nb_of_philo);
+	philo_thread(philo, time, nb_of_philo, av);
 	free(philo);
 	return (0);
 }

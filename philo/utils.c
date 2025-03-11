@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:24:56 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/09 14:24:53 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/11 13:17:42 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ int	positive_num(int ac, char **av)
 			ft_printf("error: negative number\n");
 			return (0);
 		}
+		else if (ft_atoi(av[i]) > 2147483647)
+		{
+			ft_printf("error: out of range");
+			return (0);
+		}
 		i++;
 	}
 	return (1);
@@ -83,16 +88,4 @@ void	print_message(char *s, t_philo *philo, int id)
 	pthread_mutex_lock(philo->message);
 	ft_printf("%d ms %d %s\n", elapsed_time(philo->start_time), id, s);
 	pthread_mutex_unlock(philo->message);
-}
-
-int	get_time(void)
-{
-	struct timeval	tv;
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
-int	elapsed_time(int start_time)
-{
-	return (get_time() - start_time);
 }

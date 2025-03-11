@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:25:20 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/09 14:56:24 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/11 13:57:46 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,48 @@ void	*routine(void *arg)
 		ft_eat(philo);
 		ft_sleep(philo);
 		ft_think(philo);
+		if (philo->nb_of_meal == philo->nb_philo_must_eat)
+			break ;
 		if (ft_dead(philo))
 			break ;
 	}
 	return (NULL);
 }
 
-// create 2 thread to simulate philo routine
-void	create_thread(t_philo *philo, t_time time, int nb_of_philo)
+void	free_thread(pthread_t *philo_thread, pthread_mutex_t *fork,
+	pthread_mutex_t *message ,int nb_of_philo)
 {
-	struct timeval	tv;
+	int		i;
+
+	i = 0;
+	while (i < nb_of_philo)
+		pthread_join(philo_thread[i++], NULL);
+	i = 0;
+	while (i < nb_of_philo)
+		pthread_mutex_destroy(&fork[i++]);
+	pthread_mutex_destroy(message);
+	free(philo_thread);
+	free(fork);
+	free(message);
+}
+
+void	philo_thread(t_philo *philo, t_time time, int nb_of_philo, char **av)
+{
 	pthread_t		*philo_thread;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	*message;
-	long long		start_time;
 	int				i;
 
-	gettimeofday(&tv, NULL);
-	start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	philo_thread = (pthread_t *)malloc(sizeof(pthread_t) * nb_of_philo);
 	fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * nb_of_philo);
 	message = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!philo_thread || !fork || !message)
 		return ;
-
 	i = 0;
 	while (i < nb_of_philo)
 		pthread_mutex_init(&fork[i++], NULL);
 	pthread_mutex_init(message, NULL);
-
 	i = 0;
-	//initialiser chaque philosophe
 	while (i < nb_of_philo)
 	{
 		philo[i].id = i + 1;
@@ -62,19 +73,12 @@ void	create_thread(t_philo *philo, t_time time, int nb_of_philo)
 		philo[i].l_fork = &fork[i];
 		philo[i].r_fork = &fork[(i + 1) % nb_of_philo];
 		philo[i].message = message;
-		philo[i].start_time = start_time;
+		philo[i].start_time = get_time();
+		philo[i].nb_of_meal = 0;
+		if (av[5])
+			philo[i].nb_philo_must_eat = ft_atoi(av[5]);
 		pthread_create(&philo_thread[i], NULL, routine, (void *) &philo[i]);
 		i++;
 	}
-
-	i = 0;
-	while (i < nb_of_philo)
-		pthread_join(philo_thread[i++], NULL);
-
-	i = 0;
-	while (i < nb_of_philo)
-		pthread_mutex_destroy(&fork[i++]);
-	pthread_mutex_destroy(message);
-	free(philo_thread);
-	free(fork);
+	free_thread(philo_thread, fork, message, nb_of_philo);
 }

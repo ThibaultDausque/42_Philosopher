@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thibault <thibault@student.42.fr>          +#+  +:+       +#+         #
+#    By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/01 16:24:29 by thibault          #+#    #+#              #
-#    Updated: 2025/03/07 15:06:54 by thibault         ###   ########.fr        #
+#    Updated: 2025/03/11 13:47:54 by tdausque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = cc
 CFLAGS = -g -Wall -Wextra -Werror
 NAME = philosopher
 
-SRCS = philo/init.c \
+SRCS = philo/time.c \
 		philo/main.c \
 		philo/philo.c \
 		philo/routine.c \
