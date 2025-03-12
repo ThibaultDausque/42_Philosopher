@@ -6,19 +6,19 @@
 #    By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/01 16:24:29 by thibault          #+#    #+#              #
-#    Updated: 2025/03/11 13:47:54 by tdausque         ###   ########.fr        #
+#    Updated: 2025/03/12 10:28:16 by tdausque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -g -Wall -Wextra -Werror
-NAME = philosopher
+NAME = philo
 
-SRCS = philo/time.c \
-		philo/main.c \
-		philo/philo.c \
-		philo/routine.c \
-		philo/utils.c
+SRCS = src/time.c \
+		src/main.c \
+		src/philo.c \
+		src/routine.c \
+		src/utils.c
 
 OBJ_DIR = objs/
 OBJ = $(SRCS:%.c=$(OBJ_DIR)/%.o)

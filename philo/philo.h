@@ -6,14 +6,14 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:19:24 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/11 13:18:59 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/12 13:23:10 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include "../ft_printf/ft_printf.h"
+# include "ft_printf/ft_printf.h"
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
@@ -21,12 +21,14 @@
 typedef struct s_philo
 {
 	int				id;
+	int				nb_of_philo;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*message;
+	pthread_mutex_t	*monitor;
 	size_t			start_time;
 	size_t			last_meal;
 	int				nb_of_meal;

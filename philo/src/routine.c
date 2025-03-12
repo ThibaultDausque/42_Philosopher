@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:27:30 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/11 13:14:22 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:00:19 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,17 @@ void	ft_eat(t_philo *philo)
 	{
 		pthread_mutex_lock(philo->l_fork);
 		print_message("has taken a fork", philo, philo->id);
-		usleep(500);
+		usleep(5000);
 		pthread_mutex_lock(philo->r_fork);
 		print_message("has taken a fork", philo, philo->id);
 	}
-	else
+	else if (philo->id % 2 == 1)
 	{
 		pthread_mutex_lock(philo->r_fork);
 		print_message("has taken a fork", philo, philo->id);
-		usleep(500);
+		if (philo->nb_of_philo == 1)
+			return ;
+		usleep(5000);
 		pthread_mutex_lock(philo->l_fork);
 		print_message("has taken a fork", philo, philo->id);
 	}
@@ -54,9 +56,7 @@ int	ft_dead(t_philo *philo)
 	int		current_time;
 
 	current_time = get_time();
-	if (current_time - philo->last_meal >= philo->time_to_die
-		|| (current_time - philo->start_time >= philo->time_to_die
-			&& philo->last_meal == 0))
+	if (current_time - philo->last_meal >= philo->time_to_die)
 	{
 		usleep(10000);
 		print_message("died", philo, philo->id);

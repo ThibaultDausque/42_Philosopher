@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:24:56 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/11 13:17:42 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:51:29y tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,16 @@ int	check_number(char **av)
 	while (av[i])
 	{
 		j = 0;
+		if (av[i][0] == '\0')
+		{
+			ft_printf("error: input is empty\n");
+			return (0);
+		}
 		while (av[i][j])
 		{
 			if (av[i][j] < '0' || av[i][j] > '9')
 			{
-				ft_printf("error: input isn't a number\n");
+				ft_printf("error: input isn't a number");
 				return (0);
 			}
 			j++;
@@ -73,7 +78,7 @@ int	positive_num(int ac, char **av)
 		}
 		else if (ft_atoi(av[i]) > 2147483647)
 		{
-			ft_printf("error: out of range");
+			ft_printf("error: out of range\n");
 			return (0);
 		}
 		i++;
