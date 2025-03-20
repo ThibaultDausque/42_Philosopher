@@ -90,7 +90,13 @@ void	print_message(char *s, t_philo *philo, int id)
 {
 	if (!s)
 		return ;
-	pthread_mutex_lock(philo->message);
-	ft_printf("%d ms %d %s\n", elapsed_time(philo->start_time), id, s);
-	pthread_mutex_unlock(philo->message);
+	pthread_mutex_lock(&philo->god_eyes->deat_mutex);
+	if (!philo->god_eyes->someone_died)
+	{
+		pthread_mutex_lock(philo->message);
+		ft_printf("%d ms %d %s\n", elapsed_time(philo->start_time), id, s);
+		pthread_mutex_unlock(philo->message);
+	}
+	pthread_mutex_unlock(&philo->god_eyes->deat_mutex);
 }
+

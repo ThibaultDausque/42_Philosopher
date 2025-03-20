@@ -6,7 +6,7 @@
 #    By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/01 16:24:29 by thibault          #+#    #+#              #
-#    Updated: 2025/03/12 10:28:16 by tdausque         ###   ########.fr        #
+#    Updated: 2025/03/18 10:07:34 by tdausque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ SRCS = src/time.c \
 		src/main.c \
 		src/philo.c \
 		src/routine.c \
-		src/utils.c
+		src/reaper.c \
+		src/utils.c \
+		src/die_utils.c
 
 OBJ_DIR = objs/
 OBJ = $(SRCS:%.c=$(OBJ_DIR)/%.o)
