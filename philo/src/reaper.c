@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:12:16 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/20 12:01:25 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:02:48 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,16 @@ void	*reaper_routine(void *args)
 				>= god_eyes->philo[i].time_to_die)
 			{
 				pthread_mutex_unlock(&god_eyes->philo[i].meal_lock);
+				if (god_eyes->nb_of_philo > 1)
+					print_message("died", &god_eyes->philo[i],
+						god_eyes->philo[i].id);
 				set_die(god_eyes);
-				ft_printf("%d ms %d died\n", elapsed_time(god_eyes->philo->start_time),
-					god_eyes->philo[i].id);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&god_eyes->philo[i].meal_lock);
 			i++;
 		}
-		usleep(1000);
+		usleep(100);
 	}
 }
 
@@ -50,6 +51,6 @@ void	init_god(t_philo *philo, t_god_eyes *god_eyes)
 	pthread_mutex_lock(&god_eyes->deat_mutex);
 	god_eyes->someone_died = 0;
 	pthread_mutex_unlock(&god_eyes->deat_mutex);
-
 	pthread_create(&reaper, NULL, reaper_routine, (void *) god_eyes);
+	pthread_join(reaper, NULL);
 }

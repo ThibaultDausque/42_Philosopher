@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:19:24 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/20 12:06:02 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:02:14 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/time.h>
 # include <stdio.h>
 
-typedef struct s_philo t_philo;
+typedef struct s_philo	t_philo;
 
 typedef struct s_god_eyes
 {
@@ -56,7 +56,6 @@ typedef struct s_time
 	size_t	time_to_sleep;
 }	t_time;
 
-
 /************ UTILS ************/
 int		check_number(char **av);
 int		positive_num(int ac, char **av);
@@ -70,7 +69,7 @@ void	ft_eat(t_philo *philo);
 
 /************ PHILO ************/
 void	*routine(void *arg);
-void	philo_thread(t_philo *philo, t_time time, t_god_eyes *god_eyes, char **av);
+void	philo_thread(t_philo *philo, t_god_eyes *god_eyes, char **av);
 
 /************ TIME ************/
 long	get_time(void);

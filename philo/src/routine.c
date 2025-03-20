@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 12:27:30 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/16 14:11:57by tdausque         ###   ########.fr       */
+/*   Created: 2025/03/20 16:03:00 by tdausque          #+#    #+#             */
+/*   Updated: 2025/03/20 16:03:04 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,14 @@
 
 void	ft_think(t_philo *philo)
 {
-	if (check_death(philo->god_eyes))
-		return ;
 	print_message("is thinking", philo, philo->id);
 	return ;
 }
 
 void	ft_sleep(t_philo *philo)
 {
-	if (check_death(philo->god_eyes))
-		return ;
 	print_message("is sleeping", philo, philo->id);
 	ft_usleep(philo->time_to_sleep, philo);
-	if (check_death(philo->god_eyes))
-		return ;
 }
 
 void	ft_eat(t_philo *philo)

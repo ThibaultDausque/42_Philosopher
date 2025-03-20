@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/01 16:25:20 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/18 08:57:54by tdausque         ###   ########.fr       */
+/*   Created: 2025/03/20 15:56:32 by tdausque          #+#    #+#             */
+/*   Updated: 2025/03/20 15:59:24 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,24 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-void	init_a_philo(int nb_of_philo, t_philo *philo, t_time time,
+void	init_and_free(t_philo *philo, t_god_eyes *god_eyes,
+	pthread_t *philo_thread)
+{
+	int		i;
+
+	init_god(philo, god_eyes);
+	i = 0;
+	while (i < philo->nb_of_philo)
+		pthread_join(philo_thread[i++], NULL);
+	free(philo_thread);
+}
+
+void	init_a_philo(int nb_of_philo, t_philo *philo,
 	char **av, t_god_eyes *god_eyes)
 {
 	int				i;
 	pthread_t		*philo_thread;
 	pthread_mutex_t	meal_lock;
-	(void) god_eyes;
 
 	philo_thread = (pthread_t *)malloc(sizeof(pthread_t) * nb_of_philo);
 	if (!philo_thread)
@@ -50,9 +61,8 @@ void	init_a_philo(int nb_of_philo, t_philo *philo, t_time time,
 	while (i < nb_of_philo)
 	{
 		philo[i].id = i + 1;
-		philo[i].time_to_eat = time.time_to_eat;
-		philo[i].time_to_sleep = time.time_to_sleep;
-		philo[i].time_to_die = time.time_to_die;
+		philo[i].nb_of_philo = nb_of_philo;
+		philo[i].time_to_die = ft_atoi(av[2]);
 		philo[i].start_time = get_time();
 		philo[i].nb_of_meal = 0;
 		philo[i].last_meal = get_time();
@@ -62,15 +72,11 @@ void	init_a_philo(int nb_of_philo, t_philo *philo, t_time time,
 		pthread_create(&philo_thread[i], NULL, routine, (void *) &philo[i]);
 		i++;
 	}
-	init_god(philo, god_eyes);
-	i = 0;
-	while (i < nb_of_philo)
-		pthread_join(philo_thread[i++], NULL);
-	free(philo_thread);
+	init_and_free(philo, god_eyes, philo_thread);
 }
 
 void	free_thread(pthread_mutex_t *fork, pthread_mutex_t *message,
-	int nb_of_philo, pthread_mutex_t *dead_lock)
+	int nb_of_philo)
 {
 	int		i;
 
@@ -78,29 +84,24 @@ void	free_thread(pthread_mutex_t *fork, pthread_mutex_t *message,
 	while (i < nb_of_philo)
 		pthread_mutex_destroy(&fork[i++]);
 	pthread_mutex_destroy(message);
-	pthread_mutex_destroy(dead_lock);
 	free(fork);
 	free(message);
-	free(dead_lock);
 }
 
-void philo_thread(t_philo *philo, t_time time, t_god_eyes *god_eyes, char **av)
+void	philo_thread(t_philo *philo, t_god_eyes *god_eyes, char **av)
 {
-	pthread_mutex_t *fork;
-	pthread_mutex_t *message;
-	pthread_mutex_t *dead_lock;
-	int i;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	*message;
+	int				i;
 
-	fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * philo->nb_of_philo);
-	message = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	dead_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	if (!fork || !message || !dead_lock)
-		return;
+	fork = malloc(sizeof(pthread_mutex_t) * philo->nb_of_philo);
+	message = malloc(sizeof(pthread_mutex_t));
+	if (!fork || !message)
+		return ;
 	i = 0;
 	while (i < philo->nb_of_philo)
 		pthread_mutex_init(&fork[i++], NULL);
 	pthread_mutex_init(message, NULL);
-	pthread_mutex_init(dead_lock, NULL);
 	i = 0;
 	while (i < philo->nb_of_philo)
 	{
@@ -108,9 +109,10 @@ void philo_thread(t_philo *philo, t_time time, t_god_eyes *god_eyes, char **av)
 		philo[i].r_fork = &fork[(i + 1) % philo->nb_of_philo];
 		philo[i].message = message;
 		philo[i].god_eyes = god_eyes;
-		philo[i].dead_lock = dead_lock;
+		philo[i].time_to_eat = ft_atoi(av[3]);
+		philo[i].time_to_sleep = ft_atoi(av[4]);
 		i++;
 	}
-	init_a_philo(philo->nb_of_philo, philo, time, av, god_eyes);
-	free_thread(fork, message, philo->nb_of_philo, dead_lock);
+	init_a_philo(philo->nb_of_philo, philo, av, god_eyes);
+	free_thread(fork, message, philo->nb_of_philo);
 }

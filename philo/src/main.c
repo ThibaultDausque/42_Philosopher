@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 19:45:12 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/18 15:45:15 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:48:45 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	main(int ac, char **av)
 {
 	int			nb_philo;
-	t_time		time;
 	t_philo		*philo;
 	t_god_eyes	*god_eyes;
 
@@ -29,10 +28,8 @@ int	main(int ac, char **av)
 	if (!philo || !god_eyes)
 		return (0);
 	philo->nb_of_philo = nb_philo;
-	time.time_to_die = ft_atoi(av[2]);
-	time.time_to_eat = ft_atoi(av[3]);
-	time.time_to_sleep = ft_atoi(av[4]);
-	philo_thread(philo, time, god_eyes, av);
+	philo_thread(philo, god_eyes, av);
 	free(philo);
+	free(god_eyes);
 	return (0);
 }
