@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:19:24 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/20 16:02:14 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:05:17 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ typedef struct s_god_eyes
 	t_philo			*philo;
 	int				nb_of_philo;
 	pthread_mutex_t	deat_mutex;
+	pthread_mutex_t	eat_mutex;
+	int				finish_to_eat;
+	char			**av;
+	int				everyone_eat;
 }	t_god_eyes;
 
 typedef struct s_philo
@@ -46,6 +50,7 @@ typedef struct s_philo
 	int					nb_of_meal;
 	int					someone_died;
 	int					nb_philo_must_eat;
+	int					finish;
 	t_god_eyes			*god_eyes;
 }	t_philo;
 
@@ -59,7 +64,7 @@ typedef struct s_time
 /************ UTILS ************/
 int		check_number(char **av);
 int		positive_num(int ac, char **av);
-long	ft_atoi(const char *s);
+int		ft_atoi(const char *s);
 void	print_message(char *s, t_philo *philo, int id);
 
 /************ ROUTINE ************/
@@ -74,14 +79,18 @@ void	philo_thread(t_philo *philo, t_god_eyes *god_eyes, char **av);
 /************ TIME ************/
 long	get_time(void);
 long	elapsed_time(int start_time);
-void	ft_usleep(int time, t_philo *philo);
+void	ft_usleep(int time);
 
 /************ REAPER ************/
 void	*reaper_routine(void *args);
-void	init_god(t_philo *philo, t_god_eyes *god_eyes);
+void	init_god(t_philo *philo, t_god_eyes *god_eyes, char **av,
+			pthread_t *philo_thread);
 
 /************ DIE UTILS ************/
 void	set_die(t_god_eyes *god_eyes);
 int		check_death(t_god_eyes *god_eyes);
+int		check_eat(t_god_eyes *god_eyes);
+int		everyone_eat(t_philo *philo);
+void	set_eat(t_god_eyes *god_eyes);
 
 #endif

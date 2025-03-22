@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 11:17:11 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/20 16:01:38 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:16:00 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ long	elapsed_time(int start_time)
 	return (get_time() - start_time);
 }
 
-void	ft_usleep(int time, t_philo *philo)
+void	ft_usleep(int time)
 {
 	long			end;
 	struct timeval	tv;

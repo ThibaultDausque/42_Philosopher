@@ -6,17 +6,17 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:24:56 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/20 16:04:55 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/22 12:27:45 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	ft_atoi(const char *s)
+int	ft_atoi(const char *s)
 {
 	int		i;
 	int		sign;
-	long	result;
+	int		result;
 
 	i = 0;
 	sign = 1;
@@ -91,7 +91,7 @@ void	print_message(char *s, t_philo *philo, int id)
 	if (!s)
 		return ;
 	pthread_mutex_lock(philo->message);
-	if (!check_death(philo->god_eyes))
+	if (!check_death(philo->god_eyes) && !check_eat(philo->god_eyes))
 		ft_printf("%d ms %d %s\n", elapsed_time(philo->start_time), id, s);
 	pthread_mutex_unlock(philo->message);
 }

@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:56:32 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/20 15:59:24 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:04:36 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,41 +30,31 @@ void	*routine(void *arg)
 		ft_think(philo);
 		if (check_death(philo->god_eyes))
 			break ;
+		if (check_eat(philo->god_eyes))
+			break ;
 	}
 	return (NULL);
 }
 
-void	init_and_free(t_philo *philo, t_god_eyes *god_eyes,
-	pthread_t *philo_thread)
-{
-	int		i;
-
-	init_god(philo, god_eyes);
-	i = 0;
-	while (i < philo->nb_of_philo)
-		pthread_join(philo_thread[i++], NULL);
-	free(philo_thread);
-}
-
-void	init_a_philo(int nb_of_philo, t_philo *philo,
-	char **av, t_god_eyes *god_eyes)
+void	init_a_philo(t_philo *philo, char **av, t_god_eyes *god_eyes)
 {
 	int				i;
 	pthread_t		*philo_thread;
 	pthread_mutex_t	meal_lock;
 
-	philo_thread = (pthread_t *)malloc(sizeof(pthread_t) * nb_of_philo);
+	philo_thread = (pthread_t *)malloc(sizeof(pthread_t) * ft_atoi(av[1]));
 	if (!philo_thread)
 		return ;
 	pthread_mutex_init(&meal_lock, NULL);
 	i = 0;
-	while (i < nb_of_philo)
+	while (i < ft_atoi(av[1]))
 	{
 		philo[i].id = i + 1;
-		philo[i].nb_of_philo = nb_of_philo;
+		philo[i].nb_of_philo = ft_atoi(av[1]);
 		philo[i].time_to_die = ft_atoi(av[2]);
 		philo[i].start_time = get_time();
 		philo[i].nb_of_meal = 0;
+		philo[i].finish = 0;
 		philo[i].last_meal = get_time();
 		philo[i].meal_lock = meal_lock;
 		if (av[5])
@@ -72,7 +62,7 @@ void	init_a_philo(int nb_of_philo, t_philo *philo,
 		pthread_create(&philo_thread[i], NULL, routine, (void *) &philo[i]);
 		i++;
 	}
-	init_and_free(philo, god_eyes, philo_thread);
+	init_god(philo, god_eyes, av, philo_thread);
 }
 
 void	free_thread(pthread_mutex_t *fork, pthread_mutex_t *message,
@@ -113,6 +103,6 @@ void	philo_thread(t_philo *philo, t_god_eyes *god_eyes, char **av)
 		philo[i].time_to_sleep = ft_atoi(av[4]);
 		i++;
 	}
-	init_a_philo(philo->nb_of_philo, philo, av, god_eyes);
+	init_a_philo(philo, av, god_eyes);
 	free_thread(fork, message, philo->nb_of_philo);
 }

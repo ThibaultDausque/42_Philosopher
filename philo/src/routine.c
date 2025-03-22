@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 16:03:00 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/20 16:03:04 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:33:45 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_think(t_philo *philo)
 void	ft_sleep(t_philo *philo)
 {
 	print_message("is sleeping", philo, philo->id);
-	ft_usleep(philo->time_to_sleep, philo);
+	ft_usleep(philo->time_to_sleep);
 }
 
 void	ft_eat(t_philo *philo)
@@ -45,7 +45,7 @@ void	ft_eat(t_philo *philo)
 	philo->last_meal = get_time();
 	philo->nb_of_meal++;
 	pthread_mutex_unlock(&philo->meal_lock);
-	ft_usleep(philo->time_to_eat, philo);
+	ft_usleep(philo->time_to_eat);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 }
