@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 11:17:11 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/23 12:51:48 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/23 12:59:02 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_usleep(int time)
 	end = (tv.tv_sec * 1000 + tv.tv_usec / 1000) + time;
 	while ((tv.tv_sec * 1000 + tv.tv_usec / 1000) < end)
 	{
-		gettimeofday(&tv, NULL);
 		usleep(100);
+		gettimeofday(&tv, NULL);
 	}
 }
