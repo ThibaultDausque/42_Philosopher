@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:19:24 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/22 13:05:17 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/23 12:44:46 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_philo
 {
 	int					id;
 	int					nb_of_philo;
-	long				time_to_die;
+	int					time_to_die;
 	size_t				time_to_eat;
 	size_t				time_to_sleep;
 	pthread_mutex_t		*r_fork;
@@ -45,7 +45,7 @@ typedef struct s_philo
 	pthread_mutex_t		*message;
 	pthread_mutex_t		*dead_lock;
 	pthread_mutex_t		meal_lock;
-	long				start_time;
+	int					start_time;
 	long				last_meal;
 	int					nb_of_meal;
 	int					someone_died;
@@ -77,8 +77,8 @@ void	*routine(void *arg);
 void	philo_thread(t_philo *philo, t_god_eyes *god_eyes, char **av);
 
 /************ TIME ************/
-long	get_time(void);
-long	elapsed_time(int start_time);
+int		get_time(void);
+int		elapsed_time(int start_time);
 void	ft_usleep(int time);
 
 /************ REAPER ************/

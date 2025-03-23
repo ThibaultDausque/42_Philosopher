@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:56:32 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/22 13:04:36 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/23 12:51:33 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,34 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
+void	init_some_times(t_philo *philo, int i, char **av)
+{
+	philo[i].nb_of_philo = ft_atoi(av[1]);
+	philo[i].time_to_die = ft_atoi(av[2]);
+	philo[i].last_meal = get_time();
+	philo[i].nb_of_meal = 0;
+	philo[i].finish = 0;
+}
+
 void	init_a_philo(t_philo *philo, char **av, t_god_eyes *god_eyes)
 {
 	int				i;
 	pthread_t		*philo_thread;
 	pthread_mutex_t	meal_lock;
+	int				start;
 
 	philo_thread = (pthread_t *)malloc(sizeof(pthread_t) * ft_atoi(av[1]));
 	if (!philo_thread)
 		return ;
 	pthread_mutex_init(&meal_lock, NULL);
 	i = 0;
+	start = get_time();
 	while (i < ft_atoi(av[1]))
 	{
 		philo[i].id = i + 1;
-		philo[i].nb_of_philo = ft_atoi(av[1]);
-		philo[i].time_to_die = ft_atoi(av[2]);
-		philo[i].start_time = get_time();
-		philo[i].nb_of_meal = 0;
-		philo[i].finish = 0;
-		philo[i].last_meal = get_time();
+		philo[i].start_time = start;
 		philo[i].meal_lock = meal_lock;
+		init_some_times(philo, i, av);
 		if (av[5])
 			philo[i].nb_philo_must_eat = ft_atoi(av[5]);
 		pthread_create(&philo_thread[i], NULL, routine, (void *) &philo[i]);
