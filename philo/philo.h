@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:19:24 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/23 12:44:46 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/25 08:50:40 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
-# include <stdio.h>
 
 typedef struct s_philo	t_philo;
 
