@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:12:16 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/25 12:19:31 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:24:11 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	*reaper_routine(void *args)
 		{
 			pthread_mutex_lock(&god_eyes->philo[i].meal_lock);
 			if (get_time() - god_eyes->philo[i].last_meal
-				>= god_eyes->philo[i].time_to_die)
+				> god_eyes->philo[i].time_to_die)
 			{
 				pthread_mutex_unlock(&god_eyes->philo[i].meal_lock);
 				manage_death(god_eyes, i);
@@ -53,7 +53,7 @@ void	*reaper_routine(void *args)
 			pthread_mutex_unlock(&god_eyes->philo[i].meal_lock);
 			i++;
 		}
-		usleep(1000);
+		usleep(100);
 	}
 }
 
