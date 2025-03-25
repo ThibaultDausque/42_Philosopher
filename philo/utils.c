@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:24:56 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/23 11:43:09 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:51:49 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	ft_atoi(const char *s)
 	return (result * sign);
 }
 
+
 int	check_number(char **av)
 {
 	int		i;
@@ -64,6 +65,16 @@ int	check_number(char **av)
 	return (1);
 }
 
+int	ft_strlen(char *s)
+{
+	int		i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
 int	positive_num(int ac, char **av)
 {
 	int		i;
@@ -71,14 +82,19 @@ int	positive_num(int ac, char **av)
 	i = 1;
 	while (i < ac)
 	{
-		if (ft_atoi(av[i]) < 0)
-		{
-			ft_printf("error: negative number\n");
-			return (0);
-		}
-		else if (ft_atoi(av[i]) > 2147483647)
+		if (ft_strlen(av[i]) > 10)
 		{
 			ft_printf("error: out of range\n");
+			return (0);
+		}
+		if (ft_atoi(av[i]) > 2147483647)
+		{
+			ft_printf("error: out of range\n");
+			return (0);
+		}
+		if (ft_atoi(av[i]) <= 0)
+		{
+			ft_printf("error: negative number\n");
 			return (0);
 		}
 		i++;

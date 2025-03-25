@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:56:32 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/23 12:51:33 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:18:14 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	*routine(void *arg)
 	if (philo->nb_of_philo == 1)
 	{
 		print_message("has taken a fork", philo, philo->id);
+		ft_usleep(philo->time_to_die);
 		print_message("died", philo, philo->id);
 		return (NULL);
 	}

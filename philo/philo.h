@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:19:24 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/25 08:50:40 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:40:06 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <errno.h>
 
 typedef struct s_philo	t_philo;
 
@@ -45,7 +46,7 @@ typedef struct s_philo
 	pthread_mutex_t		*dead_lock;
 	pthread_mutex_t		meal_lock;
 	int					start_time;
-	long				last_meal;
+	int					last_meal;
 	int					nb_of_meal;
 	int					someone_died;
 	int					nb_philo_must_eat;

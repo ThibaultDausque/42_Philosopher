@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:12:16 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/23 12:46:32 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:19:31 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	*reaper_routine(void *args)
 			pthread_mutex_unlock(&god_eyes->philo[i].meal_lock);
 			i++;
 		}
-		usleep(100);
+		usleep(1000);
 	}
 }
 
