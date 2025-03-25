@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 19:45:12 by thibault          #+#    #+#             */
-/*   Updated: 2025/03/25 12:16:36 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:48:49 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	main(int ac, char **av)
 	t_god_eyes	*god_eyes;
 
 	if (ac != 5 && ac != 6)
+	{
+		ft_printf("error\n");
 		return (0);
+	}
 	if (!positive_num(ac, av) || !check_number(av))
 		return (0);
 	nb_philo = ft_atoi(av[1]);
