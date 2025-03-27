@@ -6,7 +6,7 @@
 /*   By: tdausque <tdausque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:56:32 by tdausque          #+#    #+#             */
-/*   Updated: 2025/03/25 12:18:14 by tdausque         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:35:55 by tdausque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	init_a_philo(t_philo *philo, char **av, t_god_eyes *god_eyes)
 		init_some_times(philo, i, av);
 		if (av[5])
 			philo[i].nb_philo_must_eat = ft_atoi(av[5]);
+		else
+			philo[i].nb_philo_must_eat = -1;
 		pthread_create(&philo_thread[i], NULL, routine, (void *) &philo[i]);
 		i++;
 	}
